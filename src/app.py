@@ -41,7 +41,14 @@ def get_member(id):
     member = jackson_family.get_member(id)
     
     return jsonify(member), 200 
+
+@app.route('/member/<int:id>', methods=['DELETE'])
+def delete_member(id):
+    identification= jackson_family.delete_member(id)
+    member = jackson_family.get_member(id)
     
+    return jsonify(identification), 200 
+
 
 @app.route('/member', methods=['POST'])
 def add_member():
@@ -50,6 +57,7 @@ def add_member():
     "first_name": body['first_name'],
     "age": body['age'],
     "lucky_numbers": body['lucky_numbers']
+    
     }
     member_created= jackson_family.add_member(member)
     response_body= {
@@ -58,7 +66,7 @@ def add_member():
     }
     return jsonify(response_body), 200
 
-   
+
 
 # this only runs if `$ python src/app.py` is executed
 if __name__ == '__main__':
