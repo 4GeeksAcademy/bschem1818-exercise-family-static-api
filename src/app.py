@@ -47,24 +47,22 @@ def delete_member(id):
     identification= jackson_family.delete_member(id)
     member = jackson_family.get_member(id)
     
-    return jsonify(identification), 200 
+    return jsonify({"done":True}), 200 
 
 
 @app.route('/member', methods=['POST'])
 def add_member():
     body= request.get_json()
-    member= {
-    "first_name": body['first_name'],
-    "age": body['age'],
-    "lucky_numbers": body['lucky_numbers']
+    new_member = {
+        "first_name": body["first_name"],
+        "age": body["age"],
+        "lucky_numbers": body["lucky_numbers"]
+    }
+    if "id" in body:
+        new_member["id"] = body["id"]
     
-    }
-    member_created= jackson_family.add_member(member)
-    response_body= {
-        "msg": "se agrego un nuevo miembro", 
-        "member": member_created 
-    }
-    return jsonify(response_body), 200
+    member_created = jackson_family.add_member(new_member)
+    return jsonify(member_created), 200
 
 
 

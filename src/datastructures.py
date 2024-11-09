@@ -47,17 +47,16 @@ class FamilyStructure:
         
 
     def add_member(self, member):
-        new_member= {
-            "id": self._generateId(),
-            "first_name": member["first_name"],
-            "last_name": self.last_name,
-            "age": member["age"],
-            "lucky_numbers": member["lucky_numbers"]
-            }
-        self._members.append(new_member)
+        # Allow custom IDs if provided
+        if "id" not in member:
+            member["id"] = self._generateId()
+        member["last_name"] = self.last_name
+        self._members.append(member)
+        
+        return member
 
         # fill this method and update the return
-        return new_member 
+        
     
 # fill this method and update the return
     def delete_member(self, id):
